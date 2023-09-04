@@ -8,3 +8,6 @@
 .idea/knock_knock.iml
 .idea/misc.xml
 .idea/modules.xml
+__pycache__/BTC_WALLET.cpython-310.pyc
+__pycache__/config.cpython-310.pyc
+__pycache__/settings.cpython-310.pyc

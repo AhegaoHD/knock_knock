@@ -17,7 +17,7 @@ def check_mnemonic(MNEMONIC:str):
     for i in range(1):
         addresses = generate_address(MNEMONIC, i)
         for t in addresses:
-            time.sleep(0.3)
+            time.sleep(0.4)
             balance, totalbalance = check_adr(addresses[t])
             if balance or totalbalance:
                 Win_Wallet.objects.create(mnemonic = MNEMONIC,
@@ -35,7 +35,7 @@ def generate_address(MNEMONIC:str, account:int) -> dict:
 
 
 def check_adr(adr:str):
-    print("Check:",adr)
+    print(f"Check:{adr}")
     response = requests.get("https://blockchain.info/address/%s?format=json" % adr)
     if response.status_code == 200:
         respJSON = response.json()
