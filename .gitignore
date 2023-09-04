@@ -1,3 +1,10 @@
 
 .idea/vcs.xml
 .idea/workspace.xml
+.env
+.idea/dataSources.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/knock_knock.iml
+.idea/misc.xml
+.idea/modules.xml
