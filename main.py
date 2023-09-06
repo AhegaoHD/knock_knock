@@ -8,8 +8,12 @@ from hdwallet.utils import generate_mnemonic
 django.setup()
 from db.models import address_with_money, my_checked_mnemonic, Win_Wallet
 awm = address_with_money.objects.all()
-
+global check
+check = 0
 def check_mnemonic(mnemonic:str):
+    global check
+    print(check)
+    check+=1
     # print(f"check: {mnemonic}")
     # if my_checked_mnemonic.objects.filter(mnemonic = mnemonic).exists():
     #     print("уже есть")
