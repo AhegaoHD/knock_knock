@@ -50,20 +50,20 @@ def save_addresses(adresses):
     for address in adresses:
         type_address = check_address(address=address)
         if type_address == 'p2pkh':
-            if not p2pkh.objects.filter(address=address).exists():
-                p2pkh.objects.create(address=address)
+            # if not p2pkh.objects.filter(address=address).exists():
+            p2pkh.objects.get_or_create(address=address)
         elif type_address == 'p2sh':
-            if not p2sh.objects.filter(address=address).exists():
-                p2sh.objects.create(address=address)
+            # if not p2sh.objects.filter(address=address).exists():
+            p2sh.objects.get_or_create(address=address)
         elif type_address == 'p2wpkh':
-            if not p2wpkh.objects.filter(address=address).exists():
-                p2wpkh.objects.create(address=address)
+            # if not p2wpkh.objects.filter(address=address).exists():
+            p2wpkh.objects.get_or_create(address=address)
         elif type_address == 'p2wsh':
-            if not p2wsh.objects.filter(address=address).exists():
-                p2wsh.objects.create(address=address)
+            # if not p2wsh.objects.filter(address=address).exists():
+            p2wsh.objects.get_or_create(address=address)
         else:
-            if not idk.objects.filter(address=address).exists():
-                idk.objects.create(address=address)
+            # if not idk.objects.filter(address=address).exists():
+            idk.objects.get_or_create(address=address)
 
 while True:
     block = last.objects.get(crypto='BTC', ms=int(config.MS))
