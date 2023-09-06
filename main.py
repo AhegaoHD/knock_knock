@@ -55,7 +55,7 @@ thread4 = Thread(target=gogo)
 
 
 
-print(my_checked_mnemonic.objects.all().count())
+# print(my_checked_mnemonic.objects.all().count())
 
 thread0.start()
 thread1.start()
