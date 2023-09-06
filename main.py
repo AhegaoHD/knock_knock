@@ -52,11 +52,7 @@ thread1 = Thread(target=gogo)
 thread2 = Thread(target=gogo)
 thread3 = Thread(target=gogo)
 thread4 = Thread(target=gogo)
-thread5 = Thread(target=gogo)
-thread6 = Thread(target=gogo)
-thread7 = Thread(target=gogo)
-thread8 = Thread(target=gogo)
-thread9 = Thread(target=gogo)
+
 
 print(my_checked_mnemonic.objects.all().count())
 
@@ -65,9 +61,5 @@ thread1.start()
 thread2.start()
 thread3.start()
 thread4.start()
-thread5.start()
-thread6.start()
-thread7.start()
-thread8.start()
-thread9.start()
+
 
