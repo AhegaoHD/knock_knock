@@ -39,7 +39,8 @@ def get_address_from_txs(txs):
     addresses = set()
     for tx in txs:
         for ou in tx['out']:
-            addresses.add(ou['addr'])
+            if 'addr' in ou:
+                addresses.add(ou['addr'])
     return addresses
 
 def save_addresses(adresses):
@@ -70,3 +71,5 @@ while True:
     if block.height >= block.end_height:
         print("END")
         break
+
+# save_addresses(get_address_from_txs(check_block(200020)))
