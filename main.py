@@ -50,8 +50,7 @@ from threading import Thread
 thread0 = Thread(target=gogo)
 thread1 = Thread(target=gogo)
 thread2 = Thread(target=gogo)
-thread3 = Thread(target=gogo)
-thread4 = Thread(target=gogo)
+
 
 
 print(my_checked_mnemonic.objects.all().count())
@@ -59,7 +58,6 @@ print(my_checked_mnemonic.objects.all().count())
 thread0.start()
 thread1.start()
 thread2.start()
-thread3.start()
-thread4.start()
+
 
 
