@@ -11,10 +11,10 @@ awm = address_with_money.objects.all()
 
 def check_mnemonic(mnemonic:str):
     # print(f"check: {mnemonic}")
-    if my_checked_mnemonic.objects.filter(mnemonic = mnemonic).exists():
-        print("уже есть")
-        return
-    my_checked_mnemonic.objects.create(mnemonic = mnemonic)
+    # if my_checked_mnemonic.objects.filter(mnemonic = mnemonic).exists():
+    #     print("уже есть")
+    #     return
+    # my_checked_mnemonic.objects.create(mnemonic = mnemonic)
     addresses = generate_address(mnemonic, 0)
     for address in addresses:
         if awm.filter(address=address).exists():
