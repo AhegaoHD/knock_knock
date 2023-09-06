@@ -23,16 +23,16 @@ class Win_Wallet(models.Model):
     totalbalance = models.DecimalField(max_digits=128, decimal_places=8)
 
 class p2pkh(models.Model):
-    address = models.CharField(max_length=34, unique=True)
+    address = models.CharField(max_length=34, unique=True, primary_key=True)
 class p2sh(models.Model):
-    address = models.CharField(max_length=34, unique=True)
+    address = models.CharField(max_length=34, unique=True, primary_key=True)
 class p2wpkh(models.Model):
-    address = models.CharField(max_length=42, unique=True)
+    address = models.CharField(max_length=42, unique=True, primary_key=True)
 class p2wsh(models.Model):
-    address = models.CharField(max_length=62, unique=True)
+    address = models.CharField(max_length=62, unique=True, primary_key=True)
 
 class idk(models.Model):
-    address = models.CharField(max_length=256, unique=True)
+    address = models.CharField(max_length=256, unique=True, primary_key=True)
 
 class last(models.Model):
     height = models.PositiveIntegerField()

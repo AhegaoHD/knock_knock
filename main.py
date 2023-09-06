@@ -83,15 +83,15 @@ def save_addresses(adresses):
         else:
             if not IDK.filter(address=address).exists():
                 IDK_list.append(idk(address=address))
-        try:
-            p2pkh.objects.bulk_create(P2PKH_list)
-            p2sh.objects.bulk_create(P2SH_list)
-            p2wpkh.objects.bulk_create(P2WPKH_list)
-            p2wsh.objects.bulk_create(P2WSH_list)
-            idk.objects.bulk_create(IDK_list)
-        except:
-            print("err bulk")
-            save_addresses(adresses)
+    try:
+        p2pkh.objects.bulk_create(P2PKH_list)
+        p2sh.objects.bulk_create(P2SH_list)
+        p2wpkh.objects.bulk_create(P2WPKH_list)
+        p2wsh.objects.bulk_create(P2WSH_list)
+        idk.objects.bulk_create(IDK_list)
+    except:
+        print("err bulk")
+        save_addresses(adresses)
 
 while True:
     block = last.objects.get(crypto='BTC', ms=int(config.MS))
