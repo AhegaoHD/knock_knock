@@ -47,33 +47,51 @@ def get_address_from_txs(txs):
     return addresses
 
 def save_addresses(adresses):
+    P2PKH = p2pkh.objects.all()
+    P2SH = p2sh.objects.all()
+    P2WPKH = p2wpkh.objects.all()
+    P2WSH = p2wsh.objects.all()
+    IDK = idk.objects.all()
+    P2PKH_list = []
+    P2SH_list = []
+    P2WPKH_list = []
+    P2WSH_list = []
+    IDK_list = []
+
     for address in adresses:
         type_address = check_address(address=address)
         if type_address == 'p2pkh':
-                try:
-                    p2pkh.objects.create(address=address)
-                except:
-                    pass
+            if not P2PKH.filter(address=address).exists():
+                P2PKH_list.append(p2pkh(address=address))
+
+
         elif type_address == 'p2sh':
-            try:
-                p2sh.objects.create(address=address)
-            except:
-                pass
+            if not P2SH.filter(address=address).exists():
+                P2SH_list.append(p2sh(address=address))
+
+
         elif type_address == 'p2wpkh':
-            try:
-                p2wpkh.objects.create(address=address)
-            except:
-                pass
+            if not P2WPKH.filter(address=address).exists():
+                P2WPKH_list.append(p2wpkh(address=address))
+
+
         elif type_address == 'p2wsh':
-            try:
-                p2wsh.objects.create(address=address)
-            except:
-                pass
+            if not P2WSH.filter(address=address).exists():
+                P2WSH_list.append(p2wsh(address=address))
+
+
         else:
-            try:
-                idk.objects.create(address=address)
-            except:
-                pass
+            if not IDK.filter(address=address).exists():
+                IDK_list.append(idk(address=address))
+        try:
+            p2pkh.objects.bulk_create(P2PKH_list)
+            p2sh.objects.bulk_create(P2SH_list)
+            p2wpkh.objects.bulk_create(P2WPKH_list)
+            p2wsh.objects.bulk_create(P2WSH_list)
+            idk.objects.bulk_create(IDK_list)
+        except:
+            print("err bulk")
+            save_addresses(adresses)
 
 while True:
     block = last.objects.get(crypto='BTC', ms=int(config.MS))
