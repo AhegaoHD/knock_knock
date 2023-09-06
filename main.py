@@ -25,8 +25,11 @@ def check_address(address):
 
 def check_block(height):
     print(f"Check:{height}")
-
-    response = requests.get("https://blockchain.info/block-height/%s?format=json" % height)
+    try:
+        response = requests.get("https://blockchain.info/block-height/%s?format=json" % height)
+    except:
+        print("err")
+        return check_block(height)
     if response.status_code == 200:
         respJSON = response.json()
         return respJSON["blocks"][0]['tx']
@@ -64,7 +67,7 @@ def save_addresses(adresses):
 
 while True:
     block = last.objects.get(crypto='BTC', ms=int(config.MS))
-    time.sleep(0.5)
+    # time.sleep(0.5)
     save_addresses(get_address_from_txs(check_block(block.height+1)))
     block.height += 1
     block.save()
