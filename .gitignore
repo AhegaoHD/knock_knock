@@ -11,3 +11,12 @@
 __pycache__/BTC_WALLET.cpython-310.pyc
 __pycache__/config.cpython-310.pyc
 __pycache__/settings.cpython-310.pyc
+__pycache__/manage.cpython-310.pyc
+db/__pycache__/models.cpython-310.pyc
+db/migrations/__pycache__/0005_p2pkh_p2sh_p2wpkh_p2wsh.cpython-310.pyc
+db/migrations/__pycache__/0006_idk_alter_p2pkh_address_alter_p2sh_address_and_more.cpython-310.pyc
+db/__pycache__/models.cpython-310.pyc
+db/migrations/__pycache__/0007_last.cpython-310.pyc
+db/migrations/__pycache__/0008_last_crypto.cpython-310.pyc
+db/migrations/__pycache__/0009_last_ms_last_start_height.cpython-310.pyc
+db/migrations/__pycache__/0010_last_end_height.cpython-310.pyc
