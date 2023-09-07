@@ -81,16 +81,14 @@ from multiprocessing import Process
 
 def test_multiprocessing(count_proc):
     for i in range(count_proc):
-        process = Process(target=gogoPK, args=(i,))
+        process = Process(target=gogoPK)
         process.start()
         # process.join()
     print('done')
 
 
-def gogoPK(proc):
-    i =0
+def gogoPK():
     while True:
-        i+=1
         my_pk = generate_random_pk()
         addresses = pk_generate_address(my_pk)
         for address in addresses:
@@ -101,14 +99,10 @@ def gogoPK(proc):
                                           address=address,
                                           type=check_address(address),
                                           )
-        if i==10000:
-            print(f"Процесс {proc} 10000 за {int(time.time())%1000} сек")
-            break
 letters = '1234567890abcdf'
 awm = address_with_money.objects.all()
-# print("GOGO")
+
 if __name__ == '__main__':
-    print(int(time.time())%1000)
     test_multiprocessing(3)
 
 
