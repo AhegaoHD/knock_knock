@@ -101,15 +101,15 @@ def gogoPK(proc):
                                           address=address,
                                           type=check_address(address),
                                           )
-        if i==1000:
-            print(f"Процесс {proc} 100 за {int(time.time())%1000} сек")
+        if i==10000:
+            print(f"Процесс {proc} 10000 за {int(time.time())%1000} сек")
             break
 letters = '1234567890abcdf'
 awm = address_with_money.objects.all()
 # print("GOGO")
 if __name__ == '__main__':
     print(int(time.time())%1000)
-    test_multiprocessing(6)
+    test_multiprocessing(3)
 
 
 
