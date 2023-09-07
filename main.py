@@ -109,7 +109,7 @@ awm = address_with_money.objects.all()
 # print("GOGO")
 if __name__ == '__main__':
     print(int(time.time())%1000)
-    test_multiprocessing(10)
+    test_multiprocessing(20)
 
 
 
