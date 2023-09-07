@@ -1,6 +1,7 @@
 
 import os
 import random
+import time
 
 from binascii import unhexlify, hexlify
 from hashlib import sha256
@@ -13,12 +14,10 @@ from hdwallet.cryptocurrencies import get_cryptocurrency
 from hdwallet.libs.base58 import ensure_string
 from hdwallet.libs.bech32 import encode
 from hdwallet.libs.ripemd160 import ripemd160
-from numpy import ones
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 import django
-from hdwallet import BIP44HDWallet
-from hdwallet.utils import generate_mnemonic, _unhexlify
+from hdwallet.utils import _unhexlify
 
 django.setup()
 from db.models import address_with_money, Win_Wallet
@@ -82,13 +81,16 @@ from multiprocessing import Process
 
 def test_multiprocessing(count_proc):
     for i in range(count_proc):
-        process = Process(target=gogoPK)
+        process = Process(target=gogoPK, args=(i,))
         process.start()
+        # process.join()
     print('done')
 
 
-def gogoPK():
+def gogoPK(proc):
+    i =0
     while True:
+        i+=1
         my_pk = generate_random_pk()
         addresses = pk_generate_address(my_pk)
         for address in addresses:
@@ -99,10 +101,15 @@ def gogoPK():
                                           address=address,
                                           type=check_address(address),
                                           )
+        if i==1000:
+            print(f"Процесс {proc} 100 за {int(time.time())%1000} сек")
+            break
 letters = '1234567890abcdf'
 awm = address_with_money.objects.all()
+# print("GOGO")
 if __name__ == '__main__':
-    test_multiprocessing(1)
+    print(int(time.time())%1000)
+    test_multiprocessing(10)
 
 
 
