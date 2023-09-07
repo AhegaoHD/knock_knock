@@ -4,7 +4,6 @@ import random
 
 from binascii import unhexlify, hexlify
 from hashlib import sha256
-from multiprocessing.managers import BaseManager
 
 import base58
 import ecdsa
@@ -74,88 +73,34 @@ def pk_generate_address(private_key):
 
     return [p2pkh,p2sh,p2wpkh,p2wsh]
 
-letters = '1234567890abcdf'
+
 def generate_random_pk():
     rand_pk = ''.join(random.choice(letters) for i in range(64))
     return rand_pk
 
-def check_mnemonic_PK(my_pk:str, awm):
-    addresses = pk_generate_address(my_pk)
-    for address in addresses:
-        if awm.filter(address=address).exists():
-            print(my_pk)
-            Win_Wallet.objects.create(mnemonic=my_pk,
-                                      account=0,
-                                      address=address,
-                                      type=check_address(address),
-                                        )
-
-
-
-
-# if __name__ == "__main__":
-#     pool = multiprocessing.Pool(4)
-#     results = pool.map(gogoPK)
-#     pool.close()
-#     pool.join()
-#     # freeze_support()
-#     # set_start_method('fork')
-#     # p0 = Process(target=gogoPK())
-#     # p1 = Process(target=gogoPK())
-#     # p2 = Process(target=gogoPK())
-#     # p3 = Process(target=gogoPK())
-#     # p4 = Process(target=gogoPK())
-#     # p5 = Process(target=gogoPK())
-#     # p6 = Process(target=gogoPK())
-#     # p7 = Process(target=gogoPK())
-#     # p8 = Process(target=gogoPK())
-#     # p9 = Process(target=gogoPK())
-#     # p0.start()
-#     # p1.start()
-#     # p2.start()
-#     # p3.start()
-#     # p4.start()
-#     # p5.start()
-#     # p6.start()
-#     # p7.start()
-#     # p8.start()
-#     # p9.start()
-#     #
-#     # p0.join()
-#     # p1.join()
-#     # p2.join()
-#     # p3.join()
-#     # p4.join()
-#     # p5.join()
-#     # p6.join()
-#     # p7.join()
-#     # p8.join()
-#     # p9.join()
-
 from multiprocessing import Process
 
-
 def test_multiprocessing(count_proc):
-    print("зашел")
-    CustomManager.register('shared_array', address_with_money.objects.all)
-    with CustomManager() as manager:
-        data_proxy = manager.shared_array()
-        print(f'Array created on host: {data_proxy}')
-        for i in range(count_proc):
-            process = Process(target=task, args=(data_proxy,))
-            process.start()
-        print('done')
+    for i in range(count_proc):
+        process = Process(target=gogoPK)
+        process.start()
+    print('done')
 
-class CustomManager(BaseManager):
-    # nothing
-    pass
-def task(data_proxy):
-    print(f'Array sum (in child): {data_proxy}')
+
 def gogoPK():
     while True:
         my_pk = generate_random_pk()
-        check_mnemonic_PK(my_pk)
-
+        addresses = pk_generate_address(my_pk)
+        for address in addresses:
+            if awm.filter(address=address).exists():
+                print(my_pk)
+                Win_Wallet.objects.create(mnemonic=my_pk,
+                                          account=0,
+                                          address=address,
+                                          type=check_address(address),
+                                          )
+letters = '1234567890abcdf'
+awm = address_with_money.objects.all()
 if __name__ == '__main__':
     test_multiprocessing(1)
 
