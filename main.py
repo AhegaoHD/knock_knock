@@ -4,6 +4,7 @@ import random
 
 from binascii import unhexlify, hexlify
 from hashlib import sha256
+from multiprocessing.managers import BaseManager
 
 import base58
 import ecdsa
@@ -13,6 +14,7 @@ from hdwallet.cryptocurrencies import get_cryptocurrency
 from hdwallet.libs.base58 import ensure_string
 from hdwallet.libs.bech32 import encode
 from hdwallet.libs.ripemd160 import ripemd160
+from numpy import ones
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 import django
@@ -87,14 +89,7 @@ def check_mnemonic_PK(my_pk:str, awm):
                                       address=address,
                                       type=check_address(address),
                                         )
-def gogoPK(i,awm):
-    print("зашел1")
-    chek = 0
-    while True:
-        print(f"proc{i}={chek}")
-        chek+=1
-        my_pk = generate_random_pk()
-        check_mnemonic_PK(my_pk, awm)
+
 
 
 
@@ -139,27 +134,30 @@ def gogoPK(i,awm):
 
 from multiprocessing import Process
 
-def test_multiprocessing(count_proc, my_awm):
+
+def test_multiprocessing(count_proc):
     print("зашел")
-    for i in range(count_proc):
-        p_func1 = Process(target=gogoPK, args=(i,my_awm))
-        p_func1.start()
+    CustomManager.register('shared_array', address_with_money.objects.all)
+    with CustomManager() as manager:
+        data_proxy = manager.shared_array()
+        print(f'Array created on host: {data_proxy}')
+        for i in range(count_proc):
+            process = Process(target=task, args=(data_proxy,))
+            process.start()
+        print('done')
 
-    print('done')
-
-class SimpleClass(object):
-    def __init__(self):
-        self.count = 0
-
-    def plusplus(self):
-        self.count += 1
-
-    def get(self):
-        return self.count
+class CustomManager(BaseManager):
+    # nothing
+    pass
+def task(data_proxy):
+    print(f'Array sum (in child): {data_proxy}')
+def gogoPK():
+    while True:
+        my_pk = generate_random_pk()
+        check_mnemonic_PK(my_pk)
 
 if __name__ == '__main__':
-    my_awm = address_with_money.objects.all()
-    test_multiprocessing(1, my_awm)
+    test_multiprocessing(1)
 
 
 
